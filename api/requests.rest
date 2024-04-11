@@ -1,1 +1,15 @@
 GET http://localhost:3001/todos
+
+###
+
+POST http://localhost:3001/todo/new
+Content-Type: application/json
+
+{
+    "text": "Go to migros"
+}
+
+###
+
+DELETE http://localhost:3001/todo/DELETE/6611c5aa2fd4a0fb3623c553
+
