@@ -6,10 +6,13 @@ POST http://localhost:3001/todo/new
 Content-Type: application/json
 
 {
-    "text": "Go to migros"
+    "text": "Go to Coop"
 }
 
 ###
 
-DELETE http://localhost:3001/todo/DELETE/6611c5aa2fd4a0fb3623c553
+DELETE http://localhost:3001/todo/DELETE/66185be946dea37deeefe8f1
 
+###
+
+PUT http://localhost:3001/todo/complete/661d30171f464866fde32f53
