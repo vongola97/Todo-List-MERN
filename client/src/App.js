@@ -30,6 +30,13 @@ function App() {
 		
 	}
 
+  const deleteTodo = async id => {
+		const data = await fetch(api_base + '/todo/delete/' + id, { method: "DELETE" 
+  }).then(res => res.json());
+
+		setTodos(todos => todos.filter(todo => todo._id !== data.result._id));
+	}
+
   return (
     <div className="App">
       <h1>Welcome</h1>
@@ -42,7 +49,7 @@ function App() {
           <div className="checkbox"></div>
 
           <div className="text">{ todo.text }</div>
-          <div className="delete-todo">x</div>
+          <div className="delete-todo" onClick={() => deleteTodo(todo._id)}>x</div>
         </div>
         ))}
         
