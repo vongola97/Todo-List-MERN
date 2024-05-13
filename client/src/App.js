@@ -1,14 +1,26 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import Masonry from 'masonry-layout'
 const api_base = 'http://localhost:3001';
 
 function App() {
 	const [todos, setTodos] = useState([]);
 	const [popupActive, setPopupActive] = useState(false);
 	const [newTodo, setNewTodo] = useState("");
+	const gridRef = useRef(null);  // Reference to the grid container
 
 	useEffect(() => {
 		GetTodos();
 	}, []);
+
+	useEffect(() => {
+        if (gridRef.current) {
+			new Masonry(gridRef.current, {
+				itemSelector: '.todo',
+				columnWidth: '.todo', // Assuming each todo item dictates the column width
+				gutter: 20, // Adjust the gutter for more space between rows
+			});
+		}
+    }, [todos]);  // Initialize Masonry whenever todos change
 
 	const GetTodos = () => {
 		fetch(api_base + '/todos')
@@ -58,17 +70,20 @@ function App() {
 
 	return (
 		<div className="App">
+			{popupActive && <div className="overlay" onClick={() => setPopupActive(false)}></div>}
 			<h1>Welcome</h1>
 			<h4>Your Tasks</h4>
-			<div className="todos">
+			<div ref={gridRef} className="todos">
 				{todos.map(todo => (
 					<div className={
 						"todo " + (todo.complete ? "is-complete" : "")
 					} key={todo._id} onClick={() => completeTodo(todo._id)}>
 						<div className="checkbox"></div>
-
 						<div className="text">{todo.text}</div>
-						<div className="delete-todo" onClick={() => deleteTodo(todo._id)}>x</div>
+						<div className="delete-todo" onClick={(e) => {
+							e.stopPropagation(); //Prevents the completeTodo from firing
+							deleteTodo(todo._id);}}>x</div>
+						{/*<div className="delete-todo" onClick={() => deleteTodo(todo._id)}>x</div>*/}
 					</div>
 				))}
 			</div>

@@ -38,23 +38,46 @@ h4 {
 	margin-bottom: 16px;
 }
 
+.todos {
+    width: 100%; /* Ensure it spans the full width of its parent */
+    max-width: 1200px; /* Optional: restricts the maximum width if needed */
+    margin: auto; /* Centers the container if there's a max-width */
+}
+
 .todo {
+	width: 270px;
+	height: 200px;
+	overflow: hidden; /* Hides any text that overflows the set height */
 	position: relative;
 	background-color: var(--dark);
 	padding: 16px;
-	border-radius: 16px;
+	border-radius: 8px;
+    display: block;  /* Change from flex to block */
+	/*
+    margin-bottom: 10px;  /* Controlled by Masonry
+	*/
+	margin: 10px 20px; /* Vertical and horizontal margins */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);  /* Adding shadow for card effect */
+    transition: transform 0.2s;  /* Smooth scale on hover */
+	/*border-radius: 16px;
 	display: flex;
 	align-items: center;
 	transition: 0.5s;
 	cursor: pointer;
-	margin-bottom: 16px;
+	margin-bottom: 16px;*/
 }
 
 .todo:hover {
-	opacity: 0.8;
+	transform: scale(1.03);  /* Scale up on hover */
+    opacity: 1;  /* Full opacity on hover */
+	/*opacity: 0.8;*/
 }
 
 .todo .checkbox {
+	position: absolute;
+	top: 5px;  /* Adjust top spacing */
+    left: 3px; /* Adjust right spacing */
+    z-index: 1; /* Ensures it stays on top */
 	width: 20px;
 	height: 20px;
 	margin-right: 16px;
@@ -65,23 +88,34 @@ h4 {
 }
 
 .todo.is-complete .checkbox {
+	position: absolute;
+	top: 5px;  /* Adjust top spacing */
+    right: 3px; /* Adjust right spacing */
+    z-index: 1; /* Ensures it stays on top */
 	background-color: var(--primary);
 	background-image: linear-gradient(to bottom, var(--primary), var(--secondary));
 }
 
 .todo .text {
+	padding-top: 20px;
 	font-size: 20px;
 }
 
 .todo.is-complete .text {
+	padding-top: 20px;
 	text-decoration: line-through;
 }
 
 .todo .delete-todo {
 	position: absolute;
+	top: 15px;  /* Adjust top spacing */
+    right: 3px; /* Adjust right spacing */
+    z-index: 1; /* Ensures it stays on top */
+	/*
 	top: 50%;
-	transform: translateY(-50%);
 	right: 16px;
+	*/
+	transform: translateY(-50%);
 	color: var(--light);
 	width: 24px;
 	height: 24px;
@@ -100,7 +134,7 @@ h4 {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-
+	z-index: 10;
 	width: 64px;
 	height: 64px;
 	border-radius: 999px;
@@ -117,13 +151,13 @@ h4 {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-
 	width: 100%;
 	max-width: 400px;
 	background-color: var(--light);
 	padding: 32px;
 	border-radius: 16px;
 	box-shadow: 0px 4px 32px var(--dark);
+	z-index: 100; /* High z-index to ensure it's on top */
 }
 
 .closePopup {
@@ -167,4 +201,14 @@ h4 {
 	margin-top: 16px;
 	text-align: center;
 	cursor: pointer;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    z-index: 50; /* Between the main content and the popup */
 }
