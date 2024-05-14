@@ -16,8 +16,8 @@ function App() {
         if (gridRef.current) {
 			new Masonry(gridRef.current, {
 				itemSelector: '.todo',
-				columnWidth: '.todo', // Assuming each todo item dictates the column width
-				gutter: 20, // Adjust the gutter for more space between rows
+				//columnWidth: '.todo', // Assuming each todo item dictates the column width
+				gutter: 9, // Adjust the gutter for more space between rows
 			});
 		}
     }, [todos]);  // Initialize Masonry whenever todos change

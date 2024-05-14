@@ -11,7 +11,6 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-
 	font-family: "Fira Sans", sans-serif;
 }
 
@@ -22,6 +21,8 @@ body {
 
 .App {
 	padding: 32px;
+	margin: 0 auto; /* Center the app, ensure it's not restricting the child width */
+    max-width: 100%; /* Ensure it can expand fully */
 }
 
 h1 {
@@ -45,7 +46,7 @@ h4 {
 }
 
 .todo {
-	width: 270px;
+	width: calc((100% / 3) - 60px); /* Adjust width, subtracting total horizontal padding/margins */
 	height: 200px;
 	overflow: hidden; /* Hides any text that overflows the set height */
 	position: relative;
@@ -99,6 +100,14 @@ h4 {
 .todo .text {
 	padding-top: 20px;
 	font-size: 20px;
+	white-space: normal;  /* Allows text to wrap */
+    overflow: hidden;     /* Hides overflowed text */
+    text-overflow: ellipsis;  /* Adds an ellipsis to text that overflows */
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limits the text block to three lines */
+    -webkit-box-orient: vertical;
+    max-height: 54px;  /* Adjust based on your line-height multiplied by line clamp */
+    line-height: 18px; /* Adjust your line height */
 }
 
 .todo.is-complete .text {
@@ -211,4 +220,17 @@ h4 {
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
     z-index: 50; /* Between the main content and the popup */
+}
+
+@media (max-width: 768px) {
+    .todo {
+        width: calc((100% / 2) - 50px); /* 2 items per row on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .todo {
+        width: 100%; /* 1 item per row on very small screens */
+        margin: 10px 0; /* Remove horizontal margin */
+    }
 }
