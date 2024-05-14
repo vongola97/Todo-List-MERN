@@ -98,7 +98,7 @@ h4 {
 }
 
 .todo .text {
-	padding: 16px 16px 0px 16px;
+	padding: 16px 16px 1px 16px;
     font-size: 20px;
     overflow: hidden;
     display: -webkit-box;
