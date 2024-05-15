@@ -54,18 +54,9 @@ h4 {
 	padding: 16px;
 	border-radius: 8px;
     display: block;  /* Change from flex to block */
-	/*
-    margin-bottom: 10px;  /* Controlled by Masonry
-	*/
 	margin: 10px 20px; /* Vertical and horizontal margins */
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);  /* Adding shadow for card effect */
     transition: transform 0.2s;  /* Smooth scale on hover */
-	/*border-radius: 16px;
-	display: flex;
-	align-items: center;
-	transition: 0.5s;
-	cursor: pointer;
-	margin-bottom: 16px;*/
 }
 
 .todo:hover {
@@ -108,16 +99,6 @@ h4 {
     word-wrap: break-word;
     max-height: 150px;
     line-height: 20px;
-	/*
-	padding: 12px 16px 12px 16px;
-	font-size: 20px;
-	white-space: normal;  /* Allows text to wrap 
-    overflow: hidden;     /* Hides overflowed text 
-    text-overflow: ellipsis;  /* Adds an ellipsis to text that overflows
-    -webkit-line-clamp: 3; /* Limits the text block to three lines
-    max-height: 180px;  /* Adjust based on your line-height multiplied by line clamp
-	word-wrap: break-word;
-	*/
 }
 
 .todo.is-complete .text {
@@ -130,10 +111,6 @@ h4 {
 	top: 15px;  /* Adjust top spacing */
     right: 3px; /* Adjust right spacing */
     z-index: 1; /* Ensures it stays on top */
-	/*
-	top: 50%;
-	right: 16px;
-	*/
 	transform: translateY(-50%);
 	color: var(--light);
 	width: 24px;

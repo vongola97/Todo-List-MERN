@@ -77,8 +77,12 @@ function App() {
 				{todos.map(todo => (
 					<div className={
 						"todo " + (todo.complete ? "is-complete" : "")
-					} key={todo._id} onClick={() => completeTodo(todo._id)}>
-						<div className="checkbox"></div>
+					} key={todo._id}>
+						<input
+							type="checkbox"
+							checked={todo.complete}
+							onChange={() => completeTodo(todo._id)}
+						/>
 						<div className="text">{todo.text}</div>
 						<div className="delete-todo" onClick={(e) => {
 							e.stopPropagation(); //Prevents the completeTodo from firing
