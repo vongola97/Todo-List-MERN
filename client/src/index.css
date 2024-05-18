@@ -59,8 +59,9 @@ h4 {
 	align-items: center; /* Center children horizontally */
 	margin: 10px 20px; /* Vertical and horizontal margins */
 	box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Adding shadow for card effect */
-	transition: transform 0.2s; /* Smooth scale on hover */
+	transition: transform 0.2s, height 0.2s; /* Smooth scale on hover and height transition */
 	text-align: center; /* Center text horizontally */
+	cursor: pointer; /* Show pointer cursor on hover */
 }
 
 .todo .text {
@@ -71,7 +72,7 @@ h4 {
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 6;
 	text-overflow: ellipsis;
-	word-wrap: break-word;
+	word-wrap: break-word; /* This will ensure the text wraps within the container */
 	word-break: break-word; /* Ensures long words break to fit within the container */
 	max-height: 150px;
 	line-height: 20px;
@@ -226,6 +227,12 @@ h4 {
     top: 8px;
     left: 8px;
     z-index: 1;
+}
+
+.todo-text {
+    color: var(--dark);
+    font-size: 18px;
+    white-space: pre-wrap; /* Preserve whitespace and wrap text */
 }
 
 @media (max-width: 768px) {
