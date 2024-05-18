@@ -108,19 +108,20 @@ h4 {
 
 .todo .delete-todo {
 	position: absolute;
-	top: 15px;  /* Adjust top spacing */
-    right: 3px; /* Adjust right spacing */
+	top: 17px;  /* Adjust top spacing */
+    right: 6px; /* Adjust right spacing */
     z-index: 1; /* Ensures it stays on top */
 	transform: translateY(-50%);
 	color: var(--light);
-	width: 24px;
-	height: 24px;
+	width: 23px;
+	height: 23px;
 	border-radius: 50%;
 	background-color: #AF1E2D;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	font-weight: 700;
+	cursor: pointer;
 }
 
 .addPopup {
@@ -207,6 +208,16 @@ h4 {
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
     z-index: 50; /* Between the main content and the popup */
+}
+
+.custom-checkbox {
+	cursor: pointer;
+	width: 20px;
+    height: 20px;
+	position: absolute;
+    top: 8px;
+    left: 8px;
+    z-index: 1;
 }
 
 @media (max-width: 768px) {

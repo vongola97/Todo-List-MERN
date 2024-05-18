@@ -82,6 +82,7 @@ function App() {
 							type="checkbox"
 							checked={todo.complete}
 							onChange={() => completeTodo(todo._id)}
+							className="custom-checkbox"
 						/>
 						<div className="text">{todo.text}</div>
 						<div className="delete-todo" onClick={(e) => {
