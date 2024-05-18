@@ -232,6 +232,8 @@ h4 {
 .todo-text {
     color: var(--dark);
     font-size: 18px;
+	word-wrap: break-word; /* This will ensure the text wraps within the container */
+	word-break: break-word; /* Ensures long words break to fit within the container */
     white-space: pre-wrap; /* Preserve whitespace and wrap text */
 }
 

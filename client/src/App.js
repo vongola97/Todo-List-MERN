@@ -97,6 +97,8 @@ function App() {
 							checked={todo.complete}
 							onChange={() => completeTodo(todo._id)}
 							className="custom-checkbox"
+							onClick={(e) => {
+								e.stopPropagation();}} //Prevents the completeTodo from firing
 						/>
 						<div className="text">{todo.text}</div>
 						<div className="delete-todo" onClick={(e) => {
