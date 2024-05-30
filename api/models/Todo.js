@@ -10,6 +10,11 @@ const TodoSchema = new Schema({
 		type: Boolean,
 		default: false
 	},
+	user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
 	timestamp: {
 		type: String,
 		default: Date.now()
