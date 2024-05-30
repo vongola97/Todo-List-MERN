@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import Masonry from 'masonry-layout'
-import Login from './components/Login';
-import SignUp from './components/SignUp';
+import LoginPopup from './components/LoginPopup';
+import SignUpPopup from './components/SignUpPopup';
 
 const api_base = 'http://localhost:3001';
 
@@ -145,8 +145,8 @@ function App() {
                     </>
                 )}
             </div>
-            {showLogin && <Login onLogin={handleLogin} />}
-            {showSignUp && <SignUp onSignUp={handleSignUp} />}
+            {showLogin && <LoginPopup onLogin={handleLogin} onClose={() => setShowLogin(false)}/>}
+            {showSignUp && <SignUpPopup onSignUp={handleSignUp} onClose={() => setShowSignUp(false)}/>}
             {popupActive && <div className="overlay" onClick={closeViewTodo}></div>}
             <h1>Welcome</h1>
             <h4>Your Tasks</h4>
