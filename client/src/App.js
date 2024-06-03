@@ -13,11 +13,14 @@ function App() {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
     const [showSignUp, setShowSignUp] = useState(false);
+    const [username, setUsername] = useState(""); // State for username
 	const gridRef = useRef(null);  // Reference to the grid container
 
 	useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
+            const userInfo = parseJwt(token);
+            setUsername(userInfo.username);
             setIsAuthenticated(true);
             GetTodos(token);
         }
@@ -114,6 +117,9 @@ function App() {
 
     const handleLogin = (token) => {
         localStorage.setItem('token', token);
+        const userInfo = parseJwt(token);
+        setUsername(userInfo.username);
+        console.log('username: ',userInfo.username);
         setIsAuthenticated(true);
         setShowLogin(false);
         GetTodos(token);
@@ -121,6 +127,8 @@ function App() {
 
     const handleSignUp = (token) => {
         localStorage.setItem('token', token);
+        const userInfo = parseJwt(token);
+        setUsername(userInfo.username);
         setIsAuthenticated(true);
         setShowSignUp(false);
         GetTodos(token);
@@ -129,7 +137,16 @@ function App() {
     const handleLogout = () => {
         localStorage.removeItem('token');
         setIsAuthenticated(false);
+        setUsername(""); // Clear username on logout
         setTodos([]); // Clear todos on logout
+    }
+
+    const parseJwt = (token) => {
+        try {
+            return JSON.parse(atob(token.split('.')[1]));
+        } catch (e) {
+            return null;
+        }
     }
 
 
@@ -148,7 +165,7 @@ function App() {
             {showLogin && <LoginPopup onLogin={handleLogin} onClose={() => setShowLogin(false)}/>}
             {showSignUp && <SignUpPopup onSignUp={handleSignUp} onClose={() => setShowSignUp(false)}/>}
             {popupActive && <div className="overlay" onClick={closeViewTodo}></div>}
-            <h1>Welcome</h1>
+            <h1>Welcome{username && `, ${username}`}</h1>
             <h4>Your Tasks</h4>
             {isAuthenticated && (
                 <div ref={gridRef} className="todos">

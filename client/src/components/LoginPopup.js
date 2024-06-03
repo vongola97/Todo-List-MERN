@@ -3,6 +3,7 @@ import { useState } from 'react';
 const LoginPopup = ({ onLogin, onClose }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false); // State for password visibility
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -38,12 +39,20 @@ const LoginPopup = ({ onLogin, onClose }) => {
                         onChange={(e) => setUsername(e.target.value)} 
                     />
                     <input 
-                        type="password" 
+                        type={showPassword ? "text" : "password"}
                         placeholder="Password" 
                         value={password} 
                         onChange={(e) => setPassword(e.target.value)} 
                     />
-                    <button type="submit">Login</button>
+                    <label>
+                        <input
+                            type="checkbox"
+                            checked={showPassword}
+                            onChange={() => setShowPassword(!showPassword)}
+                        />
+                        Show Password
+                    </label>
+                    <button type="submit" className='popupButton'>Login</button>
                 </form>
             </div>
         </div>

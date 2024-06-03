@@ -180,11 +180,14 @@ h4 {
 .popup h3 {
 	color: var(--dark);
 	margin-bottom: 16px;
-	font-weight: 400;
+	font-weight: 600;
 	text-transform: uppercase;
+	font-size: 20px;
 }
 
-.add-todo-input {
+.add-todo-input,
+.popup input[type="text"],
+.popup input[type="password"] {
 	appearance: none;
 	outline: none;
 	border: none;
@@ -193,7 +196,8 @@ h4 {
 	border-radius: 16px;
 	width: 100%;
 	box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.2);
-	font-size: 20px;
+	font-size: 16px;
+	margin-bottom: 16px; /* Add spacing between input fields */
 }
 
 .button {
@@ -252,12 +256,41 @@ h4 {
     background: var(--secondary);
 }
 
+.popupButton {
+	background: var(--primary);
+    color: var(--light);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.popupButton button:hover {
+	background: var(--secondary);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
 .todo-text {
     color: var(--dark);
     font-size: 18px;
 	word-wrap: break-word; /* This will ensure the text wraps within the container */
 	word-break: break-word; /* Ensures long words break to fit within the container */
     white-space: pre-wrap; /* Preserve whitespace and wrap text */
+}
+
+.popup label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    color: var(--dark);
 }
 
 @media (max-width: 768px) {
