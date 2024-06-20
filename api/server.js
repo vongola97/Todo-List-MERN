@@ -44,6 +44,21 @@ app.delete('/todo/delete/:id', auth, async (req, res) => {
     const result = await Todo.findOneAndDelete({ _id: req.params.id, user: req.user._id });
     res.json({ result });
 });
+
+app.put('/todo/update/:id', auth, async (req, res) => {
+    const { text } = req.body;
+    try {
+        const todo = await Todo.findOneAndUpdate(
+            { _id: req.params.id, user: req.user._id },
+            { text },
+            { new: true }
+        );
+        res.json(todo);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 /*
 app.get('/todo/complete/:id', async (req, res) => {
     const todo = await Todo.findById(req.params.id);

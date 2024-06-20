@@ -14,6 +14,7 @@ function App() {
     const [showLogin, setShowLogin] = useState(false);
     const [showSignUp, setShowSignUp] = useState(false);
     const [username, setUsername] = useState(""); // State for username
+    const [editingTodo, setEditingTodo] = useState(null); // State for the todo being edited
 	const gridRef = useRef(null);  // Reference to the grid container
 
 	useEffect(() => {
@@ -149,6 +150,24 @@ function App() {
         }
     }
 
+    const updateTodo = async () => {
+        if (!editingTodo) return;
+
+        const token = localStorage.getItem('token');
+        const data = await fetch(api_base + "/todo/update/" + editingTodo._id, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ text: editingTodo.text })
+        }).then(res => res.json());
+
+        setTodos(todos.map(todo => (todo._id === data._id ? data : todo)));
+        setEditingTodo(null);
+        setPopupActive(false);
+    }
+
 
 	return (
         <div className="App">
@@ -186,6 +205,11 @@ function App() {
                                 e.stopPropagation(); //Prevents the completeTodo from firing
                                 deleteTodo(todo._id);
                             }}>x</div>
+                            <div className="edit-todo" onClick={(e) => {
+                                e.stopPropagation();
+                                setEditingTodo(todo);
+                                setPopupActive(true);
+                            }}>✏️</div>
                         </div>
                     ))}
                 </div>
@@ -203,7 +227,7 @@ function App() {
                 </div>
             )}
 
-            {popupActive && !viewTodo && (
+            {popupActive && !viewTodo && !editingTodo &&(
                 <div className="popup">
                     <div className="closePopup" onClick={() => setPopupActive(false)}>X</div>
                     <div className="content">
@@ -214,6 +238,21 @@ function App() {
                             onChange={e => setNewTodo(e.target.value)}
                             value={newTodo} />
                         <div className="button" onClick={addTodo}>Create Task</div>
+                    </div>
+                </div>
+            )}
+            
+            {popupActive && editingTodo && (
+                <div className="popup">
+                    <div className="closePopup" onClick={() => setPopupActive(false)}>X</div>
+                    <div className="content">
+                        <h3>Edit Task</h3>
+                        <input
+                            type="text"
+                            className="add-todo-input"
+                            onChange={e => setEditingTodo({ ...editingTodo, text: e.target.value })}
+                            value={editingTodo.text} />
+                        <div className="button" onClick={updateTodo}>Update Task</div>
                     </div>
                 </div>
             )}

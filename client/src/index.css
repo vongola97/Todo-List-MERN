@@ -133,6 +133,24 @@ h4 {
 	cursor: pointer;
 }
 
+.todo .edit-todo {
+    position: absolute;
+    top: 17px;
+    right: 36px;  /* Adjusted to place next to delete button */
+    z-index: 1;
+    transform: translateY(-50%);
+    color: var(--light);
+    width: 23px;
+    height: 23px;
+    border-radius: 50%;
+    background-color: #4CAF50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    cursor: pointer;
+}
+
 .addPopup {
 	position: fixed;
 	bottom: 32px;
