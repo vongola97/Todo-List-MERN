@@ -1,23 +1,23 @@
 import { useEffect, useState, useRef } from 'react';
-import Masonry from 'masonry-layout'
+import Masonry from 'masonry-layout';
 import LoginPopup from './components/LoginPopup';
 import SignUpPopup from './components/SignUpPopup';
 
 const api_base = 'http://localhost:3001';
 
 function App() {
-	const [todos, setTodos] = useState([]);
-	const [popupActive, setPopupActive] = useState(false);
-	const [newTodo, setNewTodo] = useState("");
-	const [viewTodo, setViewTodo] = useState(null);  // State for tracking the viewed todo
-	const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [todos, setTodos] = useState([]);
+    const [popupActive, setPopupActive] = useState(false);
+    const [newTodo, setNewTodo] = useState("");
+    const [viewTodo, setViewTodo] = useState(null);  // State for tracking the viewed todo
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
     const [showSignUp, setShowSignUp] = useState(false);
     const [username, setUsername] = useState(""); // State for username
     const [editingTodo, setEditingTodo] = useState(null); // State for the todo being edited
-	const gridRef = useRef(null);  // Reference to the grid container
+    const gridRef = useRef(null);  // Reference to the grid container
 
-	useEffect(() => {
+    useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
             const userInfo = parseJwt(token);
@@ -27,7 +27,7 @@ function App() {
         }
     }, []);
 
-	useEffect(() => {
+    useEffect(() => {
         if (gridRef.current && todos.length > 0) {
             new Masonry(gridRef.current, {
                 itemSelector: '.todo',
@@ -57,25 +57,23 @@ function App() {
         });
     }
 
-	const completeTodo = async id => {
-		const token = localStorage.getItem('token');
+    const completeTodo = async id => {
+        const token = localStorage.getItem('token');
         const data = await fetch(api_base + '/todo/complete/' + id, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         }).then(res => res.json());
 
-		setTodos(todos => todos.map(todo => {
-			if (todo._id === data._id) {
-				todo.complete = data.complete;
-			}
+        setTodos(todos => todos.map(todo => {
+            if (todo._id === data._id) {
+                todo.complete = data.complete;
+            }
+            return todo;
+        }));
+    }
 
-			return todo;
-		}));
-
-	}
-
-	const deleteTodo = async id => {
+    const deleteTodo = async id => {
         const token = localStorage.getItem('token');
         const data = await fetch(api_base + '/todo/delete/' + id, {
             method: "DELETE",
@@ -87,7 +85,7 @@ function App() {
         setTodos(todos => todos.filter(todo => todo._id !== data.result._id));
     }
 
-	const addTodo = async () => {
+    const addTodo = async () => {
         const token = localStorage.getItem('token');
         const data = await fetch(api_base + "/todo/new", {
             method: "POST",
@@ -106,13 +104,14 @@ function App() {
         setNewTodo("");
     }
 
-	const openViewTodo = (todo) => {
+    const openViewTodo = (todo) => {
         setViewTodo(todo);
         setPopupActive(true);
     }
 
     const closeViewTodo = () => {
         setViewTodo(null);
+        setEditingTodo(null);
         setPopupActive(false);
     }
 
@@ -120,7 +119,7 @@ function App() {
         localStorage.setItem('token', token);
         const userInfo = parseJwt(token);
         setUsername(userInfo.username);
-        console.log('username: ',userInfo.username);
+        console.log('username: ', userInfo.username);
         setIsAuthenticated(true);
         setShowLogin(false);
         GetTodos(token);
@@ -168,8 +167,7 @@ function App() {
         setPopupActive(false);
     }
 
-
-	return (
+    return (
         <div className="App">
             <div className="auth-buttons">
                 {isAuthenticated ? (
@@ -181,8 +179,8 @@ function App() {
                     </>
                 )}
             </div>
-            {showLogin && <LoginPopup onLogin={handleLogin} onClose={() => setShowLogin(false)}/>}
-            {showSignUp && <SignUpPopup onSignUp={handleSignUp} onClose={() => setShowSignUp(false)}/>}
+            {showLogin && <LoginPopup onLogin={handleLogin} onClose={() => setShowLogin(false)} />}
+            {showSignUp && <SignUpPopup onSignUp={handleSignUp} onClose={() => setShowSignUp(false)} />}
             {popupActive && <div className="overlay" onClick={closeViewTodo}></div>}
             <h1>Welcome{username && `, ${username}`}</h1>
             <h4>Your Tasks</h4>
@@ -197,12 +195,15 @@ function App() {
                             <input
                                 type="checkbox"
                                 checked={todo.complete}
-                                onChange={() => completeTodo(todo._id)}
+                                onClick={(e) => {
+                                    e.stopPropagation(); // Prevents the popup from opening
+                                    completeTodo(todo._id);
+                                }}
                                 className="custom-checkbox"
                             />
                             <div className="text">{todo.text}</div>
                             <div className="delete-todo" onClick={(e) => {
-                                e.stopPropagation(); //Prevents the completeTodo from firing
+                                e.stopPropagation(); // Prevents the completeTodo from firing
                                 deleteTodo(todo._id);
                             }}>x</div>
                             <div className="edit-todo" onClick={(e) => {
@@ -215,9 +216,9 @@ function App() {
                 </div>
             )}
 
-            <div className='addPopup' onClick={() => setPopupActive(true)}>+</div>
+            <div className='addPopup' onClick={() => { setNewTodo(""); setPopupActive(true); }}>+</div>
 
-            {popupActive && viewTodo && (
+            {popupActive && viewTodo && !editingTodo && (
                 <div className="popup">
                     <div className="closePopup" onClick={closeViewTodo}>X</div>
                     <div className="content">
@@ -227,7 +228,7 @@ function App() {
                 </div>
             )}
 
-            {popupActive && !viewTodo && !editingTodo &&(
+            {popupActive && !viewTodo && !editingTodo && (
                 <div className="popup">
                     <div className="closePopup" onClick={() => setPopupActive(false)}>X</div>
                     <div className="content">
@@ -241,10 +242,10 @@ function App() {
                     </div>
                 </div>
             )}
-            
+
             {popupActive && editingTodo && (
                 <div className="popup">
-                    <div className="closePopup" onClick={() => setPopupActive(false)}>X</div>
+                    <div className="closePopup" onClick={closeViewTodo}>X</div>
                     <div className="content">
                         <h3>Edit Task</h3>
                         <input
