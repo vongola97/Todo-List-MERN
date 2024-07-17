@@ -2,6 +2,8 @@ import { useEffect, useState, useRef } from 'react';
 import Masonry from 'masonry-layout';
 import LoginPopup from './components/LoginPopup';
 import SignUpPopup from './components/SignUpPopup';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete'
 
 const api_base = 'http://localhost:3001';
 
@@ -182,8 +184,8 @@ function App() {
             {showLogin && <LoginPopup onLogin={handleLogin} onClose={() => setShowLogin(false)} />}
             {showSignUp && <SignUpPopup onSignUp={handleSignUp} onClose={() => setShowSignUp(false)} />}
             {popupActive && <div className="overlay" onClick={closeViewTodo}></div>}
-            <h1>Welcome{username && `, ${username}`}</h1>
-            <h4>Your Tasks</h4>
+            <h1>{isAuthenticated ? `Welcome, ${username}` : 'Todo Web-App'}</h1>
+            <h4>{isAuthenticated ? 'Your Tasks' : 'Create your Tasks'}</h4>
             {isAuthenticated && (
                 <div ref={gridRef} className="todos">
                     {todos.map(todo => (
@@ -205,19 +207,21 @@ function App() {
                             <div className="delete-todo" onClick={(e) => {
                                 e.stopPropagation(); // Prevents the completeTodo from firing
                                 deleteTodo(todo._id);
-                            }}>x</div>
+                            }}><DeleteIcon /></div>
                             <div className="edit-todo" onClick={(e) => {
                                 e.stopPropagation();
                                 setEditingTodo(todo);
                                 setPopupActive(true);
-                            }}>✏️</div>
+                            }}><EditIcon /></div>
                         </div>
                     ))}
                 </div>
             )}
 
-            <div className='addPopup' onClick={() => { setNewTodo(""); setPopupActive(true); }}>+</div>
-
+            {isAuthenticated && (
+                <div className='addPopup' onClick={() => { setNewTodo(""); setPopupActive(true); }}>+</div>
+            )}
+            
             {popupActive && viewTodo && !editingTodo && (
                 <div className="popup">
                     <div className="closePopup" onClick={closeViewTodo}>X</div>
