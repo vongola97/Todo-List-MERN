@@ -173,11 +173,11 @@ function App() {
         <div className="App">
             <div className="auth-buttons">
                 {isAuthenticated ? (
-                    <button onClick={handleLogout}>Logout</button>
+                    <button className="logout-button" onClick={handleLogout}>Logout</button>
                 ) : (
                     <>
-                        <button onClick={() => setShowLogin(true)}>Login</button>
-                        <button onClick={() => setShowSignUp(true)}>Sign Up</button>
+                        <button className="login-button" onClick={() => setShowLogin(true)}>Login</button>
+                        <button className="signup-button" onClick={() => setShowSignUp(true)}>Sign Up</button>
                     </>
                 )}
             </div>
@@ -185,7 +185,7 @@ function App() {
             {showSignUp && <SignUpPopup onSignUp={handleSignUp} onClose={() => setShowSignUp(false)} />}
             {popupActive && <div className="overlay" onClick={closeViewTodo}></div>}
             <h1>{isAuthenticated ? `Welcome, ${username}` : 'Todo Web-App'}</h1>
-            <h4>{isAuthenticated ? 'Your Tasks' : 'Create your Tasks'}</h4>
+            <h4>{isAuthenticated ? 'Your Tasks:' : 'Create your Tasks'}</h4>
             {isAuthenticated && (
                 <div ref={gridRef} className="todos">
                     {todos.map(todo => (

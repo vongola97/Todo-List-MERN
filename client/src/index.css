@@ -189,10 +189,10 @@ h4 {
 	transform: translate(-50%, -50%);
 	width: 100%;
 	max-width: 400px;
-	background-color: var(--light);
+	background-color: var(--dark);
 	padding: 32px;
 	border-radius: 16px;
-	box-shadow: 0px 4px 32px var(--dark);
+	box-shadow: 0px 4px 32px var(--light);
 	z-index: 100; /* High z-index to ensure it's on top */
 }
 
@@ -203,12 +203,12 @@ h4 {
 	width: 20px;
 	height: 20px;
 	font-size: 20px;
-	color: var(--dark);
+	color: var(--light);
 	cursor: pointer;
 }
 
 .popup h3 {
-	color: var(--dark);
+	color: var(--light);
 	margin-bottom: 16px;
 	font-weight: 600;
 	text-transform: uppercase;
@@ -264,7 +264,7 @@ h4 {
 }
 
 .auth-buttons {
-    position: fixed;
+    position: absolute;
     top: 20px;
     right: 20px;
     display: flex;
@@ -282,8 +282,20 @@ h4 {
     transition: background 0.3s ease;
 }
 
-.auth-buttons button:hover {
-    background: var(--secondary);
+.auth-buttons .login-button {
+	background: var(--secondary);
+}
+
+.auth-buttons .login-button:hover {
+	filter: brightness(85%);
+}
+
+.auth-buttons .signup-button:hover {
+	filter: brightness(85%);
+}
+
+.auth-buttons .logout-button:hover {
+	filter: brightness(85%);
 }
 
 .popupButton {
@@ -308,7 +320,7 @@ form {
 }
 
 .todo-text {
-    color: var(--dark);
+    color: var(--light);
     font-size: 18px;
 	word-wrap: break-word; /* This will ensure the text wraps within the container */
 	word-break: break-word; /* Ensures long words break to fit within the container */
@@ -320,7 +332,7 @@ form {
     align-items: center;
     gap: 8px;
     font-size: 16px;
-    color: var(--dark);
+    color: var(--light);
 }
 
 @media (max-width: 768px) {
