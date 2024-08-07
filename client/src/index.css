@@ -184,16 +184,17 @@ h4 {
 
 .popup {
 	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 100%;
-	max-width: 400px;
-	background-color: var(--dark);
-	padding: 32px;
-	border-radius: 16px;
-	box-shadow: 0px 4px 32px var(--light);
-	z-index: 100; /* High z-index to ensure it's on top */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    background-color: var(--dark-alt);
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0px 4px 32px var(--dark);
+    z-index: 100; /* High z-index to ensure it's on top */
+    overflow: hidden; /* Prevents scrollbars within the popup */
 }
 
 .closePopup {
@@ -311,6 +312,21 @@ h4 {
 
 .popupButton button:hover {
 	background: var(--secondary);
+}
+
+.add-todo-textarea {
+    width: 100%;
+    min-height: 100px; /* Set a minimum height */
+    max-height: 400px; /* Set a maximum height */
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    resize: none;
+    box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.2);
+    font-size: 16px;
+    margin-bottom: 16px;
+    font-family: inherit;
+    overflow: hidden; /* Prevents scrollbars within the textarea */
 }
 
 form {

@@ -252,11 +252,16 @@ function App() {
                     <div className="closePopup" onClick={closeViewTodo}>X</div>
                     <div className="content">
                         <h3>Edit Task</h3>
-                        <input
-                            type="text"
-                            className="add-todo-input"
-                            onChange={e => setEditingTodo({ ...editingTodo, text: e.target.value })}
-                            value={editingTodo.text} />
+                        <textarea
+                            className="add-todo-textarea"
+                            onChange={e => {
+                                setEditingTodo({ ...editingTodo, text: e.target.value });
+                                e.target.style.height = 'auto';
+                                e.target.style.height = (e.target.scrollHeight) + 'px';
+                            }}
+                            value={editingTodo.text}
+                            style={{ overflow: 'hidden' }}
+                        />
                         <div className="button" onClick={updateTodo}>Update Task</div>
                     </div>
                 </div>
